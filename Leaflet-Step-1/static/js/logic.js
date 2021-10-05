@@ -16,13 +16,13 @@ var link = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significan
 // The function that will determine the color of the marker based on the depth of the earthquake
 function getColor(depth) {
     switch(true){
-        case depth > 80:
+        case depth > 90:
           return "red";
-        case depth > 60:
+        case depth > 70:
           return "orangered";
-        case depth > 40:
+        case depth > 50:
           return "orange";
-        case depth > 20:
+        case depth > 30:
           return "yellow";
         case depth > 10:
           return "green";
