@@ -32,4 +32,12 @@ function getColor(depth) {
 }
 
 // The function that will determine the size of the marker based on the magnitude of the earthquake
-
+function getRadius(magnitude) {
+    // If the magnitude is 0, we need the Radius size to be one so that the marker will still show up
+    if (magnitude == 0) {
+        var mag = 1;
+        return mag;
+    }
+    var mag = magnitude * 4;
+    return mag;
+}
