@@ -63,7 +63,7 @@ d3.json(link).then(function(data) {
         },
         // Pop up with earthquake info
         onEachFeature: function (feature, layer) {
-            layer.bindPopup("Location: " + feature.properties.place + "<br>Magnitude: " + feature.properties.mag);
+            layer.bindPopup("Location: " + feature.properties.place + "<br>Magnitude: " + feature.properties.mag + "<br>Depth: " + feature.geometry.coordinates[2]);
         }
 
 }).addTo(myMap);
