@@ -11,8 +11,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(myMap);
 
 // Link for GeoJSON
-var link = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson";
-
+var link = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson";
 // The function that will determine the color of the marker based on the depth of the earthquake
 function getColor(depth) {
     switch(true){
@@ -41,3 +40,31 @@ function getRadius(magnitude) {
     var mag = magnitude * 4;
     return mag;
 }
+
+// Get GeoJSON data
+d3.json(link).then(function(data) {
+    // GeoJSON layer
+    L.geoJson(data, {
+        // Add markers
+        pointToLayer: function(feauture, coordinates) {
+            return L.circleMarker(coordinates);
+        },
+        // Style markers
+        style: function(feature) {
+            return {
+            opacity: 1,
+            fillOpacity: 1,
+            fillColor: getColor(feature.geometry.coordinates[2]),
+            color: "#000000",
+            radius: getRadius(feature.properties.mag),
+            stroke: true,
+            weight: 0.5
+            };
+        },
+        // Pop up with earthquake info
+        onEachFeature: function (feature, layer) {
+            layer.bindPopup("Location: " + feature.properties.place + "<br>Magnitude: " + feature.properties.mag);
+        }
+
+}).addTo(myMap);
+})
